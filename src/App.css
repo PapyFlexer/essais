@@ -30,13 +30,14 @@
     margin-top: 3em;
   }
   table {
+    width: 1000px;
     display: flex;
     justify-content: center;
     border: 1px solid gray;
   }
   td {
     border: 1px solid gray;
-    width: 150px;
+    width: 220px;
   }
 @keyframes App-logo-spin {
   from {

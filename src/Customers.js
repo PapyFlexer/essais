@@ -32,7 +32,7 @@ export const Customers = () => {
 const HomePageHeader = () => {
     return (
       <header className="header">
-        <h2>Your Stock Tracker</h2>
+        <h2>Lister les biens</h2>
       </header>
     );
   };
@@ -53,9 +53,17 @@ const HomePageHeader = () => {
               <h5>{phone}</h5>
             </td>
             <td>
-              <p>{email}</p>
+              <p>{<a href='mailto:'>{email}</a>}</p>
             </td>
-            
+            <td>
+              <p>{search.budget}</p>
+            </td>
+            <td>
+              <p>{search.rooms}</p>
+            </td>
+            <td>
+              <p>{search.surface}</p>
+            </td>
          </tr>
         </tbody>
       </table>
