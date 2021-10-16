@@ -6,9 +6,9 @@ export const customersData = [
 		"phone": "09 39 21 62 57",
 		"email": "cew@juuv.ge",
 		"search": {
-			"surface": 83,
-			"budget": 586960,
-			"rooms": 5
+			"surface": 23,
+			"budget": 86960,
+			"rooms": 1
 		}
 	},
 	{
@@ -32,7 +32,7 @@ export const customersData = [
 		"search": {
 			"surface": 74,
 			"budget": 766722,
-			"rooms": 5
+			"rooms": 3
 		}
 	},
 	{
@@ -44,7 +44,7 @@ export const customersData = [
 		"search": {
 			"surface": 82,
 			"budget": 550889,
-			"rooms": 5
+			"rooms": 4
 		}
 	},
 	{
@@ -56,7 +56,7 @@ export const customersData = [
 		"search": {
 			"surface": 86,
 			"budget": 601017,
-			"rooms": 5
+			"rooms": 4
 		}
 	},
 	{
@@ -68,7 +68,7 @@ export const customersData = [
 		"search": {
 			"surface": 76,
 			"budget": 668928,
-			"rooms": 5
+			"rooms": 3
 		}
 	},
 	{
@@ -128,7 +128,7 @@ export const customersData = [
 		"search": {
 			"surface": 74,
 			"budget": 775880,
-			"rooms": 5
+			"rooms": 3
 		}
 	},
 	{
@@ -152,7 +152,7 @@ export const customersData = [
 		"search": {
 			"surface": 76,
 			"budget": 505539,
-			"rooms": 5
+			"rooms": 3
 		}
 	},
 	{

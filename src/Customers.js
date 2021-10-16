@@ -1,13 +1,41 @@
 import React from "react";
 import "./App.css";
-import { customersData } from "./data";
 
-export const Customers = () => {
-    return (
+const Customer = ({ id, firstName, lastName, phone, email, search }) => {
+  if (!id) return <div />;
+  return (
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <h4>{firstName}</h4>
+          </td>
+          <td>
+            <h4>{lastName}</h4>
+          </td>
+          <td>
+            <h5>{phone}</h5>
+          </td>
+          <td>
+            <p>{email}</p>
+          </td>
+          
+       </tr>
+      </tbody>
+    </table>
+  );
+};
+
+class Customers extends React.Component {
+  constructor(props){
+    super(props)
+  }
+
+  render(){
+     return (
         <>
-          <HomePageHeader />
             <div className="customer-container">
-            {customersData.map((data, key) => {
+            {this.props.customers.map((data, key) => {
                 return(
                     <div key={key}>
                         <Customer
@@ -27,46 +55,7 @@ export const Customers = () => {
             })}
            </div>
         </>
-    );
-};
-const HomePageHeader = () => {
-    return (
-      <header className="header">
-        <h2>Lister les biens</h2>
-      </header>
-    );
-  };
-  
-  const Customer = ({ id, firstName, lastName, phone, email, search }) => {
-    if (!id) return <div />;
-    return (
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <h4>{firstName}</h4>
-            </td>
-            <td>
-              <h4>{lastName}</h4>
-            </td>
-            <td>
-              <h5>{phone}</h5>
-            </td>
-            <td>
-              <p>{<a href='mailto:'>{email}</a>}</p>
-            </td>
-            <td>
-              <p>{search.budget}</p>
-            </td>
-            <td>
-              <p>{search.rooms}</p>
-            </td>
-            <td>
-              <p>{search.surface}</p>
-            </td>
-         </tr>
-        </tbody>
-      </table>
-    );
-  };
-  
+    ); 
+  }
+}
+export default Customers
