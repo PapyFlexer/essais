@@ -17,7 +17,7 @@ class App extends React.Component {
   handleSurfaceChange( value ) {
     console.log('surface');
     console.log(value)
-    let result = customersData.filter(data => data.search.budget > test.com);
+    let result = customersData.filter(data => data.search.surface > value && data.search.surface < value +10);
     this.setState( {
       customers: result
     });
