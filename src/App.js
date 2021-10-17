@@ -1,9 +1,20 @@
 import './App.css';
 import React from "react";
-import  Customers  from "./Customers";
+//import  Customers  from "./Customers";
 import { Dropdown } from 'react-dropdown-now';
 import { customersData } from "./data";
 import 'react-dropdown-now/style.css';
+//import { Component } from 'react';
+
+function refreshTable( ){
+  console.log(roomValue)
+  console.log(budgetValue)
+  console.log(surfaceValue)
+ }
+
+ let budgetValue = 0;
+ let surfaceValue = 0;
+ let roomValue = 0;
 
 
 class App extends React.Component {
@@ -14,15 +25,38 @@ class App extends React.Component {
     }
   }
 
+  refreshTable( ){
+    /*let result = customersData;
+    let incrementSurface = this.surfaceValue >=50 ? 50 : 10;
+    let incrementBudget = 100000;
+    result = customersData.filter(
+      data =>   data.search.surface >= this.surfaceValue 
+            &&  data.search.surface < this.surfaceValue +incrementSurface
+            &&  data.search.budget > (this.budgetValue-1)*incrementBudget
+            && data.search.budget < this.budgetValue*incrementBudget
+            && data.search.rooms === roomValue
+        )
+      this.setState( {
+        customers: result
+      }
+    );
+    console.log('result')*/
+  }
+
+  
   handleSurfaceChange( value ) {
     console.log('surface');
-    console.log(value)
-    let result = customersData.filter(data => data.search.surface > value && data.search.surface < value +10);
+    console.log(value);
+    let increment = 10;
+    if ( value >= 50 ) {increment = 50;}
+    let result = customersData.filter(data => data.search.surface >= value && data.search.surface < value +increment);
     this.setState( {
       customers: result
     });
     console.log(result)
     console.log(this.state)
+    surfaceValue = value;
+    refreshTable( );
   }
   handlePriceChange( value ) {
     console.log('prix');
@@ -33,6 +67,8 @@ class App extends React.Component {
     });
     console.log(result)
     console.log(this.state)
+    budgetValue = value;
+    refreshTable( );
   }
 
   handleRoomChange(value) {
@@ -43,6 +79,8 @@ class App extends React.Component {
     });
     console.log(result)
     console.log(this.state)
+    roomValue =value;
+    refreshTable( );
   }
   
 
@@ -50,6 +88,7 @@ class App extends React.Component {
     setTimeout(()=>{
       this.setState({isPopUp: true})
     }, 3000)
+    refreshTable();
   }
 
 
@@ -68,16 +107,12 @@ class App extends React.Component {
             value: 1
           },
           {
-            label: 'De 50 à 100K€',
+            label: 'De 100 à 200K€',
             value: 2
           },
           {
-            label: 'De 100 à 200K€',
-            value: 3
-          },
-          {
             label: 'De 200 à 300K€',
-            value: 4
+            value: 3
           },
           {
             label: 'De 300 à 400K€',
@@ -123,6 +158,7 @@ class App extends React.Component {
         ]}
       />
 <Dropdown
+        id="surfaceCombo"
         baseClassName="rdn"
         className="surfaceCombo"
         menu="div"
@@ -130,27 +166,27 @@ class App extends React.Component {
         options={[
           {
             label: 'moins de 20 m2',
-            value: 20
+            value: 10
           },
           {
             label: 'de 20 à 30m2',
-            value: 30
+            value: 20
           },
           {
             label: 'de 30 à 40m2',
+            value: 30
+          },
+          {
+            label: 'de 40 à 50m2',
             value: 40
           },
           {
-            label: 'de 40 à 60m2',
-            value: 60
-          },
-          {
-            label :'de 60m2 à 100m2',
-            value:100
+            label :'de 50m2 à 100m2',
+            value:50
           },
           {
             label: '+ de 100m2',
-            value: 200
+            value: 100
           }
         ]}
       />
@@ -218,7 +254,7 @@ const ProductTable = (props) => {
               onClick={() => requestSort('lastName')}
               className={getClassNamesFor('lastName')}
             >
-              Name
+              Nom
             </button>
           </th>
           <th>
@@ -227,7 +263,7 @@ const ProductTable = (props) => {
               onClick={() => requestSort('budget')}
               className={getClassNamesFor('budget')}
             >
-              Price
+              Prix
             </button>
           </th>
           <th>
@@ -236,7 +272,7 @@ const ProductTable = (props) => {
               onClick={() => requestSort('surface')}
               className={getClassNamesFor('surface')}
             >
-              In Stock
+              Surface
             </button>
           </th>
         </tr>

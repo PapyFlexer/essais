@@ -26,7 +26,7 @@
     margin-top: 3em;
   }
   table {
-    width: 100%;
+    width: 50%;
     border-collapse: collapse;
   }
   
@@ -58,6 +58,7 @@
   }
   
   tbody td {
+    text-align: left;
     padding: 0.5em;
     border-bottom: 1px solid #ccc;
   }
