@@ -155,7 +155,7 @@ class App extends React.Component {
         ]}
       />
 
-      <Customers customers={this.state.customers}/>
+      <ProductTable products={this.state.customers}/>
    </div>
     )
   }
@@ -164,3 +164,92 @@ class App extends React.Component {
 
 
 export default App;
+
+const useSortableData = (items, config = null) => {
+  const [sortConfig, setSortConfig] = React.useState(config);
+
+  const sortedItems = React.useMemo(() => {
+    let sortableItems = [...items];
+    if (sortConfig !== null) {
+      sortableItems.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableItems;
+  }, [items, sortConfig]);
+
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === 'ascending'
+    ) {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  return { items: sortedItems, requestSort, sortConfig };
+};
+
+const ProductTable = (props) => {
+  const { items, requestSort, sortConfig } = useSortableData(props.products);
+  const getClassNamesFor = (name) => {
+    if (!sortConfig) {
+      return;
+    }
+    return sortConfig.key === name ? sortConfig.direction : undefined;
+  };
+  return (
+    <table>
+      <caption>Products</caption>
+      <thead>
+        <tr>
+          <th>
+            <button
+              type="button"
+              onClick={() => requestSort('lastName')}
+              className={getClassNamesFor('lastName')}
+            >
+              Name
+            </button>
+          </th>
+          <th>
+            <button
+              type="button"
+              onClick={() => requestSort('budget')}
+              className={getClassNamesFor('budget')}
+            >
+              Price
+            </button>
+          </th>
+          <th>
+            <button
+              type="button"
+              onClick={() => requestSort('surface')}
+              className={getClassNamesFor('surface')}
+            >
+              In Stock
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map((item) => (
+          <tr key={item.id}>
+            <td>{item.firstName + ' ' + item.lastName}</td>
+            <td>€{item.search.budget}</td>
+            <td>{item.search.surface}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
