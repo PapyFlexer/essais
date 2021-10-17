@@ -275,14 +275,24 @@ const ProductTable = (props) => {
               Surface
             </button>
           </th>
+          <th>
+            <button
+              type="button"
+              onClick={() => requestSort('rooms')}
+              className={getClassNamesFor('rooms')}
+            >
+              Nb rooms
+            </button>
+          </th>
         </tr>
       </thead>
       <tbody>
         {items.map((item) => (
           <tr key={item.id}>
-            <td>{item.firstName + ' ' + item.lastName}</td>
-            <td>€{item.search.budget}</td>
+            <td>{item.firstName + ' ' + item.lastName }</td>
+            <td>{item.search.budget} €</td>
             <td>{item.search.surface}</td>
+            <td>{item.search.rooms}</td>
           </tr>
         ))}
       </tbody>
