@@ -1,20 +1,8 @@
 import './App.css';
 import React from "react";
-//import  Customers  from "./Customers";
 import { Dropdown } from 'react-dropdown-now';
 import { customersData } from "./data";
 import 'react-dropdown-now/style.css';
-//import { Component } from 'react';
-
-function refreshTable( ){
-  console.log(roomValue)
-  console.log(budgetValue)
-  console.log(surfaceValue)
- }
-
- let budgetValue = 0;
- let surfaceValue = 0;
- let roomValue = 0;
 
 
 class App extends React.Component {
@@ -23,64 +11,57 @@ class App extends React.Component {
     this.state = {
       customers: customersData
     }
-  }
-
-  refreshTable( ){
-    /*let result = customersData;
-    let incrementSurface = this.surfaceValue >=50 ? 50 : 10;
-    let incrementBudget = 100000;
-    result = customersData.filter(
-      data =>   data.search.surface >= this.surfaceValue 
-            &&  data.search.surface < this.surfaceValue +incrementSurface
-            &&  data.search.budget > (this.budgetValue-1)*incrementBudget
-            && data.search.budget < this.budgetValue*incrementBudget
-            && data.search.rooms === roomValue
-        )
-      this.setState( {
-        customers: result
-      }
-    );
-    console.log('result')*/
+    this.filters = {
+      surface : null,
+      price : null,
+      rooms : null
+    }
+    this.applySearchFilter();
   }
 
   
   handleSurfaceChange( value ) {
     console.log('surface');
     console.log(value);
-    let increment = 10;
-    if ( value >= 50 ) {increment = 50;}
-    let result = customersData.filter(data => data.search.surface >= value && data.search.surface < value +increment);
-    this.setState( {
-      customers: result
-    });
-    console.log(result)
-    console.log(this.state)
-    surfaceValue = value;
-    refreshTable( );
+    this.filters.surface = value;
+    this.applySearchFilter();
   }
   handlePriceChange( value ) {
     console.log('prix');
     console.log( value );
-    let result = customersData.filter(data => data.search.budget > (value-1)*100000 && data.search.budget < value*100000)
-    this.setState( {
-      customers: result
-    });
-    console.log(result)
-    console.log(this.state)
-    budgetValue = value;
-    refreshTable( );
+    this.filters.price = value;
+    this.applySearchFilter();
   }
 
   handleRoomChange(value) {
+    console.log('room');
     console.log(value)
-    let result = customersData.filter(data => data.search.rooms === value);
+    this.filters.rooms = value;
+    this.applySearchFilter();
+  }
+  
+   applySearchFilter()
+  {
+    let result = customersData;
+    if( this.filters.rooms != null )
+    {
+      result = result.filter(data => data.search.rooms === this.filters.rooms);
+    }
+    if( this.filters.price != null )
+    {
+      result = result.filter(data => data.search.budget < (this.filters.price-1)*100000 && data.search.budget < this.filters.price*100000);
+    }
+    if( this.filters.surface != null )
+    {
+      let increment = 10;
+      if ( this.filters.surface >= 50 ) {increment = 50;}
+      result = result.filter(data => data.search.surface >= this.filters.surface && data.search.surface < this.filters.surface +increment);
+    }
+    console.log(result)
+    console.log(this.filters);
     this.setState( {
       customers: result
     });
-    console.log(result)
-    console.log(this.state)
-    roomValue =value;
-    refreshTable( );
   }
   
 
@@ -88,7 +69,6 @@ class App extends React.Component {
     setTimeout(()=>{
       this.setState({isPopUp: true})
     }, 3000)
-    refreshTable();
   }
 
 
