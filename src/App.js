@@ -49,7 +49,7 @@ class App extends React.Component {
     }
     if( this.filters.price != null )
     {
-      result = result.filter(data => data.search.budget < (this.filters.price-1)*100000 && data.search.budget < this.filters.price*100000);
+      result = result.filter(data => data.search.budget >=(this.filters.price -1 ) * 100000 && data.search.budget < this.filters.price * 100000);
     }
     if( this.filters.surface != null )
     {
